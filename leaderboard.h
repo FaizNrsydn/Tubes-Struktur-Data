@@ -32,7 +32,16 @@ void postOrder(BinTree tree);
 void preOrder(BinTree tree);
 void levelOrder(BinTree tree);
 
-void searchByid(BinTree);
-void searchByusername();
-void searchByrank();
+void searchById(BinTree tree, int id);
+void searchByUsername(BinTree tree, char username);
+void searchByRank(BinTree tree, int rank);
+
+bool deleteScore(BinTree &tree, int score);
+
+// kami gatau dipake ga ini WAKAKAK
+// bool deleteId(BinTree &tree, int id);
+// bool deleteUsername(BinTree &tree, char username);
+// bool deleteRank(BinTree &tree, int rank);
+
+
 #endif

@@ -2,19 +2,21 @@
 #define LEADERBOARD_H
 #define Nill NULL
 
+#include <iostream>
 using namespace std;
 
-const int MAX = 10;
+
+struct leaderboard{
+    int score;
+    int id;
+    string username;
+    int level;
+    int rank;
+};
 
 typedef struct BST *node;
 struct BST{
-    int id;
-    char nama[MAX];
-    char username[MAX];
-    int score;
-    int level;
-    int rank;
-
+    leaderboard info;
     node left;
     node right;
 };
@@ -23,25 +25,26 @@ typedef node BinTree;
 
 bool isEmpty(BinTree tree);
 void createTree(BinTree &tree);
-node alokasi(int id);
+node alokasi(leaderboard info);
 void dealokasi(node nodeHapus);
 
-void insertNode(BinTree &tree);
+void insertNode(BinTree &tree, leaderboard info);
 void inOrder(BinTree tree);
 void postOrder(BinTree tree);
 void preOrder(BinTree tree);
 void levelOrder(BinTree tree);
+void printLeaderboard(BinTree tree);
+void printTopN(BinTree tree, int n);
 
 void searchById(BinTree tree, int id);
-void searchByUsername(BinTree tree, char username);
-void searchByRank(BinTree tree, int rank);
+void searchByUsername(BinTree tree, string username);
+void searchByScore(BinTree tree, int score);
 
-bool deleteScore(BinTree &tree, int score);
+bool deleteById(BinTree &tree, int id);
+bool deleteByUsername(BinTree &tree, string username);
 
-// kami gatau dipake ga ini WAKAKAK
-// bool deleteId(BinTree &tree, int id);
-// bool deleteUsername(BinTree &tree, char username);
-// bool deleteRank(BinTree &tree, int rank);
-
+void updateRank(BinTree tree);                
+int countTotalScore(BinTree tree);                
+int countPlayers(BinTree tree);  
 
 #endif

@@ -8,10 +8,10 @@ using namespace std;
 
 struct leaderboard{
     int score;
-    int id;
+    string id;
     string username;
     int level;
-    int rank;
+    string rank;
 };
 
 typedef struct BST *node;

@@ -2,22 +2,6 @@
 #include "leaderboard.h"
 using namespace std;
 
-leaderboard inputPlayer() {
-    leaderboard p;
-    cout << "\n=== Input Data Pemain ===\n";
-    cout << "ID            : ";
-    cin >> p.id;
-    cout << "Username      : ";
-    cin >> p.username;
-    cout << "Score         : ";
-    cin >> p.score;
-    cout << "Level         : ";
-    cin >> p.level;
-    cout << "Rank          : ";
-    cin >> p.rank;
-    return p;
-}
-
 int main() {
     BinTree tree;
     createTree(tree);
@@ -39,7 +23,7 @@ int main() {
         switch(choice) {
             case 1: {
                 leaderboard p = inputPlayer();
-                insertNode(tree, p);
+                insertNode(tree, alokasi(p));
                 cout << ">> Pemain berhasil ditambahkan!\n";
                 break;
             }
@@ -53,7 +37,7 @@ int main() {
                 string id;
                 cout << "Masukkan ID pemain: ";
                 cin >> id;
-                searchById(tree, stoi(id));
+                // searchById(tree, stoi(id));
                 break;
             }
 
@@ -61,7 +45,7 @@ int main() {
                 string uname;
                 cout << "Masukkan Username pemain: ";
                 cin >> uname;
-                searchByUsername(tree, uname);
+                // searchByUsername(tree, uname);
                 break;
             }
 
@@ -69,21 +53,21 @@ int main() {
                 string id;
                 cout << "Masukkan ID pemain yang ingin dihapus: ";
                 cin >> id;
-                if (deleteById(tree, stoi(id)))
-                    cout << ">> Pemain berhasil dihapus.\n";
-                else
-                    cout << ">> Pemain tidak ditemukan.\n";
-                break;
+                // if (deleteById(tree, stoi(id)))
+                //     cout << ">> Pemain berhasil dihapus.\n";
+                // else
+                //     cout << ">> Pemain tidak ditemukan.\n";
+                // break;
             }
 
             case 6:
-                cout << "Total Score semua pemain: " 
-                    << countTotalScore(tree) << endl;
+                cout << "Total Score semua pemain: "; 
+                    // << countTotalScore(tree) << endl;
                 break;
 
             case 7:
-                cout << "Jumlah pemain: " 
-                    << countPlayers(tree) << endl;
+                cout << "Jumlah pemain: "; 
+                    // << countPlayers(tree) << endl;
                 break;
 
             case 0:

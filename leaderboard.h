@@ -1,6 +1,6 @@
 #ifndef LEADERBOARD_H
 #define LEADERBOARD_H
-#define Nill NULL
+#define Nil NULL
 
 #include <iostream>
 using namespace std;
@@ -23,18 +23,19 @@ struct BST{
 
 typedef node BinTree;
 
+
 bool isEmpty(BinTree tree);
 void createTree(BinTree &tree);
 node alokasi(leaderboard info);
 void dealokasi(node nodeHapus);
 
-void insertNode(BinTree &tree, leaderboard info);
+void insertNode(BinTree &tree, node nodeBaru);
 void inOrder(BinTree tree);
 void postOrder(BinTree tree);
 void preOrder(BinTree tree);
 void levelOrder(BinTree tree);
 void printLeaderboard(BinTree tree);
-void printTopN(BinTree tree, int n);
+// void printTopN(BinTree tree, int n);
 
 void searchById(BinTree tree, int id);
 void searchByUsername(BinTree tree, string username);
@@ -46,5 +47,9 @@ bool deleteByUsername(BinTree &tree, string username);
 void updateRank(BinTree tree);                
 int countTotalScore(BinTree tree);                
 int countPlayers(BinTree tree);  
+
+int tentukanLevel(int score);
+string tentukanRank(int score);
+leaderboard inputPlayer();
 
 #endif

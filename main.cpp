@@ -13,7 +13,6 @@ int main() {
     p4 = {3500, "user030", "CasualPlay", tentukanLevel(3500), tentukanRank(3500)};
     p5 = {500, "user150", "Newbie_G", tentukanLevel(500), tentukanRank(500)};
     
-
     insertNode(tree, alokasi(p1));
     insertNode(tree, alokasi(p2));
     insertNode(tree, alokasi(p3));
@@ -111,7 +110,7 @@ int main() {
             default:
                 cout << "Pilihan tidak valid!\n";
         }
-
+        
     } while (choice != 0);
 
     return 0;

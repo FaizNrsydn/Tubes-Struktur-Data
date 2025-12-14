@@ -147,7 +147,6 @@ bool searchByUsernameHelper(BinTree tree, string username){
     return searchByUsernameHelper(tree->left, username) || searchByUsernameHelper(tree->right, username);
 }
 
-
 void searchByUsername(BinTree tree, string username){
     if (isEmpty(tree)) return;
     if (!searchByUsernameHelper(tree, username)){
@@ -175,9 +174,9 @@ void searchByScore(BinTree tree, int score){
             }
         }
         if(ketemu == false){
-            cout << "Data tidak ditemukan" << endl;
+            cout << "Score tidak ditemukan" << endl;
         } else if(ketemu == true){
-            cout << "Data ditemukan didalam tree!" << endl;
+            cout << "Score ditemukan didalam tree!" << endl;
             InfoPlayer(nodeBantu);
         }
     }
@@ -231,36 +230,31 @@ node deletebyScore(BinTree &tree, int score){
         }
     }
 }
+
 bool deleteById(BinTree &tree, string id){
     if (isEmpty(tree)) return false;
-
     if (tree->info.id == id){
         tree = deletebyScore(tree, tree->info.score);
         return true;
     }
-
     return deleteById(tree->left, id) || deleteById(tree->right, id);
 }
 
 bool deleteByUsername(BinTree &tree, string username){
     if (isEmpty(tree)) return false;
-
     if (tree->info.username == username){
         tree = deletebyScore(tree, tree->info.score);
         return true;
     }
-
     return deleteByUsername(tree->left,username ) || deleteByUsername(tree->right, username);
 }
 
 bool findPlayerByUsername(BinTree tree, string username, leaderboard &result){
     if (isEmpty(tree)) return false;
-
     if (tree->info.username == username){
         result = tree->info; // ambil DATA
         return true;
     }
-
     return findPlayerByUsername(tree->left, username, result) || findPlayerByUsername(tree->right, username, result);
 }
 
@@ -269,17 +263,13 @@ bool updateScoreByUsername(BinTree &tree , string username, int score){
         cout << "Kosong" << endl;
     }
     leaderboard data;
-
     if (!findPlayerByUsername(tree, username, data)){
         return false;
     }
-
     deleteByUsername(tree, username);
-
     data.score = score;
     data.level = tentukanLevel(score);
     data.rank  = tentukanRank(score);
-
     insertNode(tree, alokasi(data));
     return true;
 }

@@ -21,14 +21,14 @@ node alokasi(leaderboard info){
 }
 
 void dealokasi(node nodeHapus){
+    nodeHapus->left = NULL;
+    nodeHapus->right = NULL;
     delete nodeHapus;
 }
 
 void insertNode(BinTree &tree, node nodeBaru){
-    if(tree == Nil){
+    if(isEmpty(tree)){
         tree = nodeBaru;
-        cout << "Node " << nodeBaru->info.score << " berhasil ditambahkan ke dalam tree!" << endl;
-        return;
     } else if(nodeBaru->info.score < tree->info.score){
         insertNode(tree->left, nodeBaru);
     } else if(nodeBaru->info.score > tree->info.score){
@@ -38,58 +38,53 @@ void insertNode(BinTree &tree, node nodeBaru){
     }
 }
 
+void InfoPlayer(BinTree tree){
+    cout << "================================" << endl;
+    cout << "Score\t:" << tree->info.score << endl;
+    cout << "ID \t:" << tree->info.id << endl;
+    cout << "Username:"<<tree->info.username << endl;
+    cout << "Level\t:" << tree->info.level << endl;
+    cout << "Rank\t:"<<tree->info.rank << endl;
+    cout << "================================" << endl;
+}
+
 void preOrder(BinTree tree){
-    if(tree == Nil){
+    if(isEmpty(tree)){
         return;
     }
-    cout << tree->info.score << endl;
-    cout << tree->info.id << endl;
-    cout << tree->info.username << endl;
-    cout << tree->info.level << endl;
-    cout << tree->info.rank << endl;
+    InfoPlayer(tree);
     preOrder(tree->left);
     preOrder(tree->right);
 }
 
 void inOrder(BinTree tree){
-    if(tree == Nil){
+    if(isEmpty(tree)){
         return;
     }
     inOrder(tree->left);
-    cout << tree->info.score << endl;
-    cout << tree->info.id << endl;
-    cout << tree->info.username << endl;
-    cout << tree->info.level << endl;
-    cout << tree->info.rank << endl;
+    InfoPlayer(tree);
     inOrder(tree->right);
 }
 
 void postOrder(BinTree tree){
-    if(tree == Nil){
+    if(isEmpty(tree)){
         return;
     }
     postOrder(tree->left);
     postOrder(tree->right);
-    cout << tree->info.score << endl;
-    cout << tree->info.id << endl;
-    cout << tree->info.username << endl;
-    cout << tree->info.level << endl;
-    cout << tree->info.rank << endl;
+    InfoPlayer(tree);
 }
 
-void levelOrder(BinTree tree){
-}
+// void levelOrder(BinTree tree){
+
+// }
 
 void printLeaderboard(BinTree tree){
-    if(tree == Nil){
+    if(isEmpty(tree)){
         return;
     }
     printLeaderboard(tree->right);
-    cout << tree->info.score << endl;
-    cout << tree->info.id << endl;
-    cout << tree->info.username << endl;
-    cout << tree->info.level << endl;
-    cout << tree->info.rank << endl;
+    InfoPlayer(tree);
     printLeaderboard(tree->left);
 }
 
@@ -116,13 +111,181 @@ string tentukanRank(int score){
 leaderboard inputPlayer() {
     leaderboard p;
     cout << "\n=== Input Data Pemain ===\n";
-    cout << "ID            : ";
+    cout << "ID\t: ";
     cin >> p.id;
-    cout << "Username      : ";
+    cout << "Username: ";
     cin >> p.username;
-    cout << "Score         : ";
+    cout << "Score\t: ";
     cin >> p.score;
     p.level = tentukanLevel(p.score);
     p.rank = tentukanRank(p.score);
     return p;
+}
+
+void searchById(BinTree tree, string id){
+    if (isEmpty(tree)) return;
+    if (!searchByIdHelper(tree, id)){
+        cout << "ID " << id << " tidak ditemukan !!!" << endl;
+    }
+}
+
+bool searchByIdHelper(BinTree tree, string id){
+    if (isEmpty(tree)) return false;
+    if (tree->info.id == id){
+        InfoPlayer(tree);
+        return true;
+    }
+    return searchByIdHelper(tree->left, id) || searchByIdHelper(tree->right, id);
+}
+
+bool searchByUsernameHelper(BinTree tree, string username){
+    if (isEmpty(tree)) return false;
+    if (tree->info.username == username){
+        InfoPlayer(tree);
+        return true;
+    }
+    return searchByUsernameHelper(tree->left, username) || searchByUsernameHelper(tree->right, username);
+}
+
+
+void searchByUsername(BinTree tree, string username){
+    if (isEmpty(tree)) return;
+    if (!searchByUsernameHelper(tree, username)){
+        cout << "Username " << username << " tidak ditemukan !!!" << endl;
+    }
+}
+
+void searchByScore(BinTree tree, int score){
+    if(isEmpty(tree) == true){
+        cout << "Tree kosong!" << endl;
+    } else {
+        node nodeBantu = tree;
+        node parent = Nil;
+        bool ketemu = false;
+        while(nodeBantu != Nil){
+            if(score < nodeBantu->info.score){
+                parent = nodeBantu;
+                nodeBantu = nodeBantu->left;
+            } else if(score > nodeBantu->info.score){
+                parent = nodeBantu;
+                nodeBantu = nodeBantu->right;
+            } else if(score == nodeBantu->info.score){
+                ketemu = true;
+                break;
+            }
+        }
+        if(ketemu == false){
+            cout << "Data tidak ditemukan" << endl;
+        } else if(ketemu == true){
+            cout << "Data ditemukan didalam tree!" << endl;
+            InfoPlayer(nodeBantu);
+        }
+    }
+}
+
+node mostLeft(BinTree tree){
+    while (tree->right != Nil){
+        tree = tree->right;
+    }
+    return tree;
+}
+
+node deletebyScore(BinTree &tree, int score){
+    if (isEmpty(tree)) {
+        return Nil; //data tidak ditemukan di subtree ini
+    } else {
+        if (score < tree->info.score) {
+            return deletebyScore(tree->left, score);
+        } else if (score > tree->info.score) {
+            return deletebyScore(tree->right, score);
+        } else {
+            //jika node yang mau dihapus ditemukan
+            //Case 1 : node yang mau dihapus adalah leaf
+            if (tree->left == Nil && tree->right == Nil) {
+                node tmp = tree;
+                tree = Nil;
+                dealokasi(tmp);
+            }
+            //Case 2 : node yang mau dihapus hanya punya right child
+            else if (tree->left == Nil) {
+                node tmp = tree;
+                tree = tree->right;
+                dealokasi(tmp);
+            }
+            //Case 3 : node yang mau dihapus hanya punya left child
+            else if (tree->right == Nil) {
+                node tmp = tree;
+                tree = tree->left;
+                dealokasi(tmp);
+            }
+            // Case 4 : jika node yang mau dihapus punya dua child, maka ambil mostleft dari subtree kanan untuk menggantikan node yang mau dihapus
+            else {
+                //mostleft dari subtree kanan = node successor (node penerus)
+                node successor = mostLeft(tree->right);
+                //salin data successor ke node saat ini
+                tree->info.score = successor->info.score;
+                //hapus successor pada subtree kanan
+                return deletebyScore(tree->right, successor->info.score);
+            }
+            return tree; //berhasil dihapus
+        }
+    }
+}
+bool deleteById(BinTree &tree, string id){
+    if (isEmpty(tree)) return false;
+
+    if (tree->info.id == id){
+        tree = deletebyScore(tree, tree->info.score);
+        return true;
+    }
+
+    return deleteById(tree->left, id) || deleteById(tree->right, id);
+}
+
+bool deleteByUsername(BinTree &tree, string username){
+    if (isEmpty(tree)) return false;
+
+    if (tree->info.username == username){
+        tree = deletebyScore(tree, tree->info.score);
+        return true;
+    }
+
+    return deleteByUsername(tree->left,username ) || deleteByUsername(tree->right, username);
+}
+
+bool findPlayerByUsername(BinTree tree, string username, leaderboard &result){
+    if (isEmpty(tree)) return false;
+
+    if (tree->info.username == username){
+        result = tree->info; // ambil DATA
+        return true;
+    }
+
+    return findPlayerByUsername(tree->left, username, result) || findPlayerByUsername(tree->right, username, result);
+}
+
+bool updateScoreByUsername(BinTree &tree , string username, int score){
+    if(isEmpty(tree)){
+        cout << "Kosong" << endl;
+    }
+    leaderboard data;
+
+    if (!findPlayerByUsername(tree, username, data)){
+        return false;
+    }
+
+    deleteByUsername(tree, username);
+
+    data.score = score;
+    data.level = tentukanLevel(score);
+    data.rank  = tentukanRank(score);
+
+    insertNode(tree, alokasi(data));
+    return true;
+}
+
+int countPlayers(BinTree tree){
+    if (isEmpty(tree)) return 0;
+    int jumlah = 1 + countPlayers(tree->left) + countPlayers(tree->right);
+    return jumlah;
 }

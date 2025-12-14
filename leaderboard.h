@@ -23,7 +23,6 @@ struct BST{
 
 typedef node BinTree;
 
-
 bool isEmpty(BinTree tree);
 void createTree(BinTree &tree);
 node alokasi(leaderboard info);
@@ -33,23 +32,31 @@ void insertNode(BinTree &tree, node nodeBaru);
 void inOrder(BinTree tree);
 void postOrder(BinTree tree);
 void preOrder(BinTree tree);
-void levelOrder(BinTree tree);
+// void levelOrder(BinTree tree);
 void printLeaderboard(BinTree tree);
 // void printTopN(BinTree tree, int n);
 
-void searchById(BinTree tree, int id);
+bool searchByIdHelper(BinTree tree, string id);
+void searchById(BinTree tree, string id);
+bool searchByUsernameHelper(BinTree tree, string username);
 void searchByUsername(BinTree tree, string username);
 void searchByScore(BinTree tree, int score);
 
-bool deleteById(BinTree &tree, int id);
+//=============================================================
+node mostLeft(BinTree tree);
+node deletebyScore(BinTree &tree, int score);
+bool deleteById(BinTree &tree, string id);
 bool deleteByUsername(BinTree &tree, string username);
+//=============================================================
 
-void updateRank(BinTree tree);                
-int countTotalScore(BinTree tree);                
-int countPlayers(BinTree tree);  
+bool findPlayerByUsername(BinTree tree, string username, leaderboard &result);
+bool updateScoreByUsername(BinTree &tree, string username, int score);
+// int countTotalScore(BinTree tree);
+int countPlayers(BinTree tree);
 
 int tentukanLevel(int score);
 string tentukanRank(int score);
 leaderboard inputPlayer();
+void InfoPlayer(BinTree tree);
 
 #endif

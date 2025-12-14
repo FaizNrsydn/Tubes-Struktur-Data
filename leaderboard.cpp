@@ -33,6 +33,8 @@ void insertNode(BinTree &tree, node nodeBaru){
         insertNode(tree->left, nodeBaru);
     } else if(nodeBaru->info.score > tree->info.score){
         insertNode(tree->right, nodeBaru);
+    }else{
+        insertNode(tree->right, nodeBaru);
     }
 }
 

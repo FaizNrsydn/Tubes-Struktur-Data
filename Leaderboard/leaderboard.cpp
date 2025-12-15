@@ -17,6 +17,8 @@ node alokasi(leaderboard info){
     nodeBaru->info.username = info.username;
     nodeBaru->info.level = info.level;
     nodeBaru->info.rank = info.rank;
+    nodeBaru->left = Nil;
+    nodeBaru->right = Nil;
     return nodeBaru;
 }
 
@@ -154,31 +156,62 @@ void searchByUsername(BinTree tree, string username){
     }
 }
 
-void searchByScore(BinTree tree, int score){
-    if(isEmpty(tree) == true){
-        cout << "Tree kosong!" << endl;
-    } else {
-        node nodeBantu = tree;
-        node parent = Nil;
-        bool ketemu = false;
-        while(nodeBantu != Nil){
-            if(score < nodeBantu->info.score){
-                parent = nodeBantu;
-                nodeBantu = nodeBantu->left;
-            } else if(score > nodeBantu->info.score){
-                parent = nodeBantu;
-                nodeBantu = nodeBantu->right;
-            } else if(score == nodeBantu->info.score){
-                ketemu = true;
-                break;
-            }
-        }
-        if(ketemu == false){
-            cout << "Score tidak ditemukan" << endl;
-        } else if(ketemu == true){
-            cout << "Score ditemukan didalam tree!" << endl;
-            InfoPlayer(nodeBantu);
-        }
+// void searchByScore(BinTree tree, int score){
+//     if(isEmpty(tree) == true){
+//         cout << "Tree kosong!" << endl;
+//     } else {
+//         node nodeBantu = tree;
+//         node parent = Nil;
+//         bool ketemu = false;
+//         while(nodeBantu != Nil){
+//             if(score < nodeBantu->info.score ){
+//                 parent = nodeBantu;
+//                 nodeBantu = nodeBantu->left;
+//             } else if(score > nodeBantu->info.score){
+//                 parent = nodeBantu;
+//                 nodeBantu = nodeBantu->right;
+//             } else if(score == nodeBantu->info.score){
+//                 ketemu = true;
+//                 break;
+//             }
+//         }
+//         if(ketemu == false){
+//             cout << "Score tidak ditemukan" << endl;
+//         } else if(ketemu == true){
+//             cout << "Score ditemukan didalam tree!" << endl;
+//             InfoPlayer(nodeBantu);
+//         }
+//     }
+// }
+
+void searchByRange(BinTree tree, int minScore, int maxScore) {
+    // Basis Rekursi: Jika pohon kosong, kembali
+    if (tree == Nil) {
+        return;
+    }
+
+    // 1. Cek Subtree Kiri
+    // Hanya perlu menjelajahi subtree kiri jika minScore lebih kecil dari skor node saat ini.
+    // Jika minScore sudah lebih besar dari skor node saat ini, semua node di kiri
+    // pasti di luar rentang, jadi lewati.
+    if (minScore < tree->info.score) {
+        searchByRange(tree->left, minScore, maxScore);
+    }
+
+    // 2. Cek Node Saat Ini
+    // Jika skor node saat ini berada dalam rentang [minScore, maxScore], cetak.
+    if (tree->info.score >= minScore && tree->info.score <= maxScore) {
+        cout << "Ditemukan: " << endl;
+        InfoPlayer(tree); // Asumsi fungsi InfoPlayer mencetak detail
+        cout << "---" << endl;
+    }
+
+    // 3. Cek Subtree Kanan
+    // Hanya perlu menjelajahi subtree kanan jika maxScore lebih besar dari skor node saat ini.
+    // Jika maxScore sudah lebih kecil dari skor node saat ini, semua node di kanan
+    // pasti di luar rentang, jadi lewati.
+    if (maxScore > tree->info.score) {
+        searchByRange(tree->right, minScore, maxScore);
     }
 }
 

@@ -1,5 +1,5 @@
-#include <iostream>
 #include "leaderboard.h"
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -61,10 +61,13 @@ int main() {
                 break;
             }
             case 5:{
-                int score;
-                cout << "Masukkan Score pemain yang dicari: ";
-                cin >> score;
-                searchByScore(tree, score);
+                int minScore, maxScore;
+                cout << "Masukkan Range score minimumnya: ";
+                cin >> minScore;
+                cout << "Masukkan Range score maximumnya: ";
+                cin >> maxScore;
+                // searchByScore(tree, score);
+                searchByRange(tree, minScore, maxScore);
                 break;
             }
             case 6:{
@@ -107,11 +110,14 @@ int main() {
             case 0:
                 cout << "Keluar...\n";
                 break;
-            default:
+                default:
                 cout << "Pilihan tidak valid!\n";
-        }
-        
-    } while (choice != 0);
-
+            }
+            
+        } while (choice != 0);
+    // Tambahkan baris di bawah ini:
+    cin.ignore(); // Membersihkan sisa newline di buffer
+    cout << "Tekan ENTER untuk keluar...";
+    cin.get();
     return 0;
 }

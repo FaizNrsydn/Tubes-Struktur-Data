@@ -48,7 +48,8 @@ bool searchByIdHelper(BinTree tree, string id);
 void searchById(BinTree tree, string id);
 bool searchByUsernameHelper(BinTree tree, string username);
 void searchByUsername(BinTree tree, string username);
-void searchByScore(BinTree tree, int score);
+// void searchByScore(BinTree tree, int score);
+void searchByRange(BinTree tree, int minScore, int maxScore);
 //=============================================================
 
 // Delete

@@ -1,5 +1,7 @@
 #include "leaderboard.h"
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
 bool isEmpty(BinTree tree){
@@ -39,15 +41,14 @@ void insertNode(BinTree &tree, node nodeBaru){
         insertNode(tree->right, nodeBaru);
     }
 }
+    
 
 void InfoPlayer(BinTree tree){
-    cout << "================================" << endl;
-    cout << "Score\t:" << tree->info.score << endl;
-    cout << "ID \t:" << tree->info.id << endl;
-    cout << "Username:"<<tree->info.username << endl;
-    cout << "Level\t:" << tree->info.level << endl;
-    cout << "Rank\t:"<<tree->info.rank << endl;
-    cout << "================================" << endl;
+    cout << "  | " << left << setw(8) << tree->info.score 
+            << "| " << setw(10) << tree->info.id 
+            << "| " << setw(18) << tree->info.username 
+            << "| " << setw(8) << tree->info.level 
+            << "| " << setw(15) << tree->info.rank << "|" << endl;
 }
 
 void preOrder(BinTree tree){
@@ -112,12 +113,14 @@ string tentukanRank(int score){
 
 leaderboard inputPlayer() {
     leaderboard p;
-    cout << "\n=== Input Data Pemain ===\n";
-    cout << "ID\t: ";
+        cout << "==========================================================================\n";
+        cout << "  |                           INPUT DATA PEMAIN                        |\n";
+        cout << "==========================================================================\n";
+    cout << "  | ID         : ";
     cin >> p.id;
-    cout << "Username: ";
+    cout << "  | Username   : ";
     cin >> p.username;
-    cout << "Score\t: ";
+    cout << "  | Score      : ";
     cin >> p.score;
     p.level = tentukanLevel(p.score);
     p.rank = tentukanRank(p.score);
@@ -201,9 +204,7 @@ void searchByRange(BinTree tree, int minScore, int maxScore) {
     // 2. Cek Node Saat Ini
     // Jika skor node saat ini berada dalam rentang [minScore, maxScore], cetak.
     if (tree->info.score >= minScore && tree->info.score <= maxScore) {
-        cout << "Ditemukan: " << endl;
         InfoPlayer(tree); // Asumsi fungsi InfoPlayer mencetak detail
-        cout << "---" << endl;
     }
 
     // 3. Cek Subtree Kanan
@@ -255,7 +256,7 @@ node deletebyScore(BinTree &tree, int score){
                 //mostleft dari subtree kanan = node successor (node penerus)
                 node successor = mostLeft(tree->right);
                 //salin data successor ke node saat ini
-                tree->info.score = successor->info.score;
+                tree->info = successor->info;
                 //hapus successor pada subtree kanan
                 return deletebyScore(tree->right, successor->info.score);
             }
@@ -267,7 +268,8 @@ node deletebyScore(BinTree &tree, int score){
 bool deleteById(BinTree &tree, string id){
     if (isEmpty(tree)) return false;
     if (tree->info.id == id){
-        tree = deletebyScore(tree, tree->info.score);
+        int scoreDitemukan = tree->info.score;
+        deletebyScore(tree, scoreDitemukan);
         return true;
     }
     return deleteById(tree->left, id) || deleteById(tree->right, id);
@@ -276,7 +278,8 @@ bool deleteById(BinTree &tree, string id){
 bool deleteByUsername(BinTree &tree, string username){
     if (isEmpty(tree)) return false;
     if (tree->info.username == username){
-        tree = deletebyScore(tree, tree->info.score);
+        int scoreDitemukan = tree->info.score;
+        deletebyScore(tree, scoreDitemukan);
         return true;
     }
     return deleteByUsername(tree->left,username ) || deleteByUsername(tree->right, username);
@@ -311,4 +314,16 @@ int countPlayers(BinTree tree){
     if (isEmpty(tree)) return 0;
     int jumlah = 1 + countPlayers(tree->left) + countPlayers(tree->right);
     return jumlah;
+}
+
+void printHeader() {
+        cout << "==========================================================================\n";
+        cout << "  |                             LEADERBOARD                            |\n";
+        cout << "==========================================================================\n";
+    cout << "  | " << left << setw(8) << "Score" 
+        << "| " << setw(10) << "ID" 
+        << "| " << setw(18) << "Username" 
+        << "| " << setw(8) << "Level" 
+        << "| " << setw(15) << "Rank" << "|" << endl;
+    cout << "------------------------------------------------------------------------" << endl;
 }

@@ -2,6 +2,7 @@
 #define LEADERBOARD_H
 #define Nil NULL
 
+#include <locale>
 #include <iostream>
 using namespace std;
 
@@ -75,5 +76,7 @@ string tentukanRank(int score);
 leaderboard inputPlayer();
 void InfoPlayer(BinTree tree);
 //=============================================================
+
+void printHeader();
 
 #endif

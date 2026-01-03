@@ -159,34 +159,6 @@ void searchByUsername(BinTree tree, string username){
     }
 }
 
-// void searchByScore(BinTree tree, int score){
-//     if(isEmpty(tree) == true){
-//         cout << "Tree kosong!" << endl;
-//     } else {
-//         node nodeBantu = tree;
-//         node parent = Nil;
-//         bool ketemu = false;
-//         while(nodeBantu != Nil){
-//             if(score < nodeBantu->info.score ){
-//                 parent = nodeBantu;
-//                 nodeBantu = nodeBantu->left;
-//             } else if(score > nodeBantu->info.score){
-//                 parent = nodeBantu;
-//                 nodeBantu = nodeBantu->right;
-//             } else if(score == nodeBantu->info.score){
-//                 ketemu = true;
-//                 break;
-//             }
-//         }
-//         if(ketemu == false){
-//             cout << "Score tidak ditemukan" << endl;
-//         } else if(ketemu == true){
-//             cout << "Score ditemukan didalam tree!" << endl;
-//             InfoPlayer(nodeBantu);
-//         }
-//     }
-// }
-
 void searchByRange(BinTree tree, int minScore, int maxScore) {
     // Basis Rekursi: Jika pohon kosong, kembali
     if (tree == Nil) {
@@ -216,8 +188,15 @@ void searchByRange(BinTree tree, int minScore, int maxScore) {
     }
 }
 
-node mostLeft(BinTree tree){
+node mostRight(BinTree tree){
     while (tree->right != Nil){
+        tree = tree->right;
+    }
+    return tree;
+}
+
+node mostLeft(BinTree tree){
+    while (tree->left != Nil){
         tree = tree->right;
     }
     return tree;

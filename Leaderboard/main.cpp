@@ -5,19 +5,6 @@ using namespace std;
 int main() {
     BinTree tree;
     createTree(tree);
-    //Dummy
-    // leaderboard p1, p2, p3, p4, p5;
-    // p1 = {3000, "user001", "GamerPro99", tentukanLevel(3000), tentukanRank(3000)};
-    // p2 = {2450, "user005", "SkillMaster", tentukanLevel(2450), tentukanRank(2450)};
-    // p3 = {1280, "user012", "NoobSlayerX", tentukanLevel(1280), tentukanRank(1280)};
-    // p4 = {3500, "user030", "CasualPlay", tentukanLevel(3500), tentukanRank(3500)};
-    // p5 = {500, "user150", "Newbie_G", tentukanLevel(500), tentukanRank(500)};
-    
-    // insertNode(tree, alokasi(p1));
-    // insertNode(tree, alokasi(p2));
-    // insertNode(tree, alokasi(p3));
-    // insertNode(tree, alokasi(p4));
-    // insertNode(tree, alokasi(p5));
 
     int choice;
     do {

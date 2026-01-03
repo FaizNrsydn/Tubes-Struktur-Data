@@ -55,6 +55,7 @@ void searchByRange(BinTree tree, int minScore, int maxScore);
 
 // Delete
 //=============================================================
+node mostRight(BinTree tree);
 node mostLeft(BinTree tree);
 node deletebyScore(BinTree &tree, int score);
 bool deleteById(BinTree &tree, string id);

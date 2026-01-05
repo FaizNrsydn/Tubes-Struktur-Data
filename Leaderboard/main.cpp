@@ -37,7 +37,6 @@ int main() {
                 break;
             }
             case 2:
-                // cout << "\n=== Leaderboard ===\n";
                 printHeader();
                 printLeaderboard(tree);
                 cout << "==========================================================================" << endl;
@@ -72,7 +71,6 @@ int main() {
                 cin >> minScore;
                 cout << "Masukkan Range score maximumnya: ";
                 cin >> maxScore;
-                // searchByScore(tree, score);
                 printHeader();
                 searchByRange(tree, minScore, maxScore);
                 cout << "==========================================================================" << endl;
@@ -133,14 +131,9 @@ int main() {
             case 0:
                 cout << "Keluar...\n";
                 break;
-                default:
+            default:
                 cout << "Pilihan tidak valid!\n";
             }
-            
         } while (choice != 0);
-    // Tambahkan baris di bawah ini:
-    cin.ignore(); // Membersihkan sisa newline di buffer
-    cout << "Tekan ENTER untuk keluar...";
-    cin.get();
     return 0;
 }

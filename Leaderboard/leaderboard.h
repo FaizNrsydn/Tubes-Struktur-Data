@@ -39,8 +39,7 @@ void inOrder(BinTree tree);
 void postOrder(BinTree tree);
 void preOrder(BinTree tree);
 void printLeaderboard(BinTree tree);
-// void levelOrder(BinTree tree);
-// void printTopN(BinTree tree, int n);
+void printHeader();
 //============================================================
 
 // Search
@@ -49,7 +48,6 @@ bool searchByIdHelper(BinTree tree, string id);
 void searchById(BinTree tree, string id);
 bool searchByUsernameHelper(BinTree tree, string username);
 void searchByUsername(BinTree tree, string username);
-// void searchByScore(BinTree tree, int score);
 void searchByRange(BinTree tree, int minScore, int maxScore);
 //=============================================================
 
@@ -67,7 +65,6 @@ bool deleteByUsername(BinTree &tree, string username);
 bool findPlayerByUsername(BinTree tree, string username, leaderboard &result);
 bool updateScoreByUsername(BinTree &tree, string username, int score);
 int countPlayers(BinTree tree);
-// int countTotalScore(BinTree tree);
 //=============================================================
 
 // Input User
@@ -78,6 +75,5 @@ leaderboard inputPlayer();
 void InfoPlayer(BinTree tree);
 //=============================================================
 
-void printHeader();
 
 #endif

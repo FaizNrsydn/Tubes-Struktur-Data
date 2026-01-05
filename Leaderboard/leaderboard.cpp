@@ -78,10 +78,6 @@ void postOrder(BinTree tree){
     InfoPlayer(tree);
 }
 
-// void levelOrder(BinTree tree){
-
-// }
-
 void printLeaderboard(BinTree tree){
     if(isEmpty(tree)){
         return;
@@ -90,10 +86,6 @@ void printLeaderboard(BinTree tree){
     InfoPlayer(tree);
     printLeaderboard(tree->left);
 }
-
-// void printTopN(BinTree tree, int n){
-
-// }
 
 int tentukanLevel(int score){
     return (score/500) + 1;
@@ -160,7 +152,6 @@ void searchByUsername(BinTree tree, string username){
 }
 
 void searchByRange(BinTree tree, int minScore, int maxScore) {
-    // Basis Rekursi: Jika pohon kosong, kembali
     if (tree == Nil) {
         return;
     }
@@ -176,7 +167,7 @@ void searchByRange(BinTree tree, int minScore, int maxScore) {
     // 2. Cek Node Saat Ini
     // Jika skor node saat ini berada dalam rentang [minScore, maxScore], cetak.
     if (tree->info.score >= minScore && tree->info.score <= maxScore) {
-        InfoPlayer(tree); // Asumsi fungsi InfoPlayer mencetak detail
+        InfoPlayer(tree);
     }
 
     // 3. Cek Subtree Kanan
@@ -204,7 +195,7 @@ node mostLeft(BinTree tree){
 
 node deletebyScore(BinTree &tree, int score){
     if (isEmpty(tree)) {
-        return Nil; //data tidak ditemukan di subtree ini
+        return Nil;
     } else {
         if (score < tree->info.score) {
             return deletebyScore(tree->left, score);
@@ -239,7 +230,7 @@ node deletebyScore(BinTree &tree, int score){
                 //hapus successor pada subtree kanan
                 return deletebyScore(tree->right, successor->info.score);
             }
-            return tree; //berhasil dihapus
+            return tree;
         }
     }
 }
@@ -267,7 +258,7 @@ bool deleteByUsername(BinTree &tree, string username){
 bool findPlayerByUsername(BinTree tree, string username, leaderboard &result){
     if (isEmpty(tree)) return false;
     if (tree->info.username == username){
-        result = tree->info; // ambil DATA
+        result = tree->info;
         return true;
     }
     return findPlayerByUsername(tree->left, username, result) || findPlayerByUsername(tree->right, username, result);

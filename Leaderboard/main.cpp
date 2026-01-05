@@ -2,12 +2,19 @@
 #include <iostream>
 using namespace std;
 
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#endif
+}
+
 int main() {
     BinTree tree;
     createTree(tree);
 
     int choice;
     do {
+        clearScreen();
         cout << "==========================================================================\n";
         cout << "  |                        MENU LEADERBOARD BST                        |\n";
         cout << "==========================================================================\n";
@@ -29,7 +36,7 @@ int main() {
 
         switch(choice) {
             case 1:{
-                leaderboard p = inputPlayer();
+                leaderboard p = inputPlayer(tree);
                 insertNode(tree, alokasi(p));
                 cout << "   >> Pemain berhasil ditambahkan!\n";
                 cout << "==========================================================================" << endl;

@@ -71,7 +71,8 @@ int countPlayers(BinTree tree);
 //=============================================================
 int tentukanLevel(int score);
 string tentukanRank(int score);
-leaderboard inputPlayer();
+bool isIdExist(BinTree tree, string id);
+leaderboard inputPlayer(BinTree tree);
 void InfoPlayer(BinTree tree);
 //=============================================================
 

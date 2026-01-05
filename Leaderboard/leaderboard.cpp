@@ -1,5 +1,6 @@
 #include "leaderboard.h"
 #include <iostream>
+#include <limits>
 #include <iomanip>
 
 using namespace std;
@@ -103,17 +104,41 @@ string tentukanRank(int score){
     }
 }
 
-leaderboard inputPlayer() {
+bool isIdExist(BinTree tree, string id) {
+    if (isEmpty(tree)) return false;
+
+    if (tree->info.id == id)
+        return true;
+
+    return isIdExist(tree->left, id) || isIdExist(tree->right, id);
+}
+
+leaderboard inputPlayer(BinTree tree) {
     leaderboard p;
         cout << "==========================================================================\n";
         cout << "  |                           INPUT DATA PEMAIN                        |\n";
         cout << "==========================================================================\n";
+        do{
     cout << "  | ID         : ";
     cin >> p.id;
+
+    if (isIdExist(tree, p.id)) {
+        cout << "  | ID sudah ada! Masukkan ID lain.\n";
+    }
+        }while(isIdExist(tree, p.id));
+
+
     cout << "  | Username   : ";
-    cin >> p.username;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, p.username);
     cout << "  | Score      : ";
-    cin >> p.score;
+
+    while (!(cin >> p.score)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "  | Score harus ANGKA! Masukkan ulang: ";
+    }
+
     p.level = tentukanLevel(p.score);
     p.rank = tentukanRank(p.score);
     return p;
@@ -287,9 +312,9 @@ int countPlayers(BinTree tree){
 }
 
 void printHeader() {
-        cout << "==========================================================================\n";
-        cout << "  |                             LEADERBOARD                            |\n";
-        cout << "==========================================================================\n";
+    cout << "==========================================================================\n";
+    cout << "  |                             LEADERBOARD                            |\n";
+    cout << "==========================================================================\n";
     cout << "  | " << left << setw(8) << "Score" 
         << "| " << setw(10) << "ID" 
         << "| " << setw(18) << "Username" 
